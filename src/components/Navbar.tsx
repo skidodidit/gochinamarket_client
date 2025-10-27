@@ -9,7 +9,6 @@ import {
   X,
   Home,
   Phone,
-  Info,
   User,
   ChevronDown,
   Box
@@ -24,7 +23,11 @@ import Profile from './Profile';
 import UserAccountSidebar from './UserAccount';
 import { useGlobalStore } from '@/store/useGlobalStore';
 
-export default function Navbar() {
+interface NavbarProps {
+  show?: boolean;
+}
+
+export default function Navbar({ show = true }: NavbarProps) {
   const pathname = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
@@ -133,12 +136,14 @@ export default function Navbar() {
   const navItems = [
     { name: 'Home', path: '/', icon: Home },
     { name: 'Products', path: '/products', icon: Box },
+    { name: 'Used Products', path: '/used_products', icon: Box },
     { name: 'Contact', path: '/contact', icon: Phone },
     // { name: 'About', path: '/about', icon: Info },
   ];
   const mobileNavItems = [
     { name: 'Home', path: '/', icon: Home },
     { name: 'Products', path: '/products', icon: Box },
+    { name: 'Used Products', path: '/used_products', icon: Box },
     { name: 'Contact', path: '/contact', icon: Phone },
     { name: 'Wishlist', path: '/wishlist', icon: Heart },
     // { name: 'About', path: '/about', icon: Info },
@@ -194,7 +199,7 @@ export default function Navbar() {
       {/* Top Banner */}
       {settings && (
         <motion.div
-          className="bg-black text-white py-3 md:px-4 text-center md:text-sm text-[10px]"
+          className="bg-white/5 border-b border-white/20 backdrop-blur-sm text-white text-center py-3 md:px-4 px-2 text-center md:text-sm text-[10px]"
           initial="hidden"
           animate="visible"
           variants={bannerVariants}
@@ -208,7 +213,7 @@ export default function Navbar() {
 
       {/* Main Navbar */}
       <motion.nav
-        className="bg-transparent px-4 lg:px-8 py-4 text-black relative"
+        className="bg-transparent px-4 lg:px-8 py-4 text-white relative"
         initial="hidden"
         animate="visible"
         variants={navVariants}
@@ -232,7 +237,7 @@ export default function Navbar() {
                   alt="GoChinaMarket"
                   className="absolute left-0 -ml-2"
                 />
-                <p className="text-black font-bold">{settings?.siteName}</p>
+                <p className="text-primary-300 font-bold">{settings?.siteName}</p>
               </motion.div>
             </motion.div></Link>
 
@@ -251,7 +256,7 @@ export default function Navbar() {
                 >
                   <Link
                     href={item.path}
-                    className={`flex items-center gap-2 text-gray-900 hover:text-gray-600 transition-colors ${active ? 'font-semibold' : ''
+                    className={`flex items-center gap-2 hover:text-primary-300 transition-colors ${active ? 'font-semibold text-primary-300' : 'text-white'
                       }`}
                   >
                     <motion.div
@@ -269,7 +274,7 @@ export default function Navbar() {
               <motion.div variants={itemVariants}>
                 <button
                   onClick={openAccount}
-                  className={`flex items-center gap-2 text-gray-900 hover:text-gray-600 transition-colors ${isActive('/account') ? 'font-semibold' : ''
+                  className={`flex items-center gap-2 text-white hover:text-primary-300 transition-colors ${isActive('/account') ? 'font-semibold text-primary-300' : ''
                     }`}
                 >
                   <div className={`w-1.5 h-1.5 rounded-full bg-primary-300 transition-all ${isActive('/account') ? 'opacity-100' : 'opacity-0'
@@ -285,7 +290,7 @@ export default function Navbar() {
               >
                 <motion.button
                   onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                  className="flex items-center gap-1 text-gray-900 hover:text-gray-600 transition-colors"
+                  className="flex items-center gap-1 text-white hover:text-primary-300 transition-colors"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
@@ -295,7 +300,7 @@ export default function Navbar() {
                 <AnimatePresence>
                   {isDropdownOpen && (
                     <motion.div
-                      className="absolute z-50 right-0 mt-2 w-32 bg-white border border-gray-200 shadow-md rounded-md flex flex-col text-sm overflow-hidden"
+                      className="absolute z-50 right-0 mt-2 w-32 bg-transparent backdrop-blur-sm border border-white/60 shadow-md rounded-md flex flex-col text-sm overflow-hidden"
                       variants={dropdownVariants}
                       initial="hidden"
                       animate="visible"
@@ -303,13 +308,13 @@ export default function Navbar() {
                     >
                       <Link
                         href="/auth/register"
-                        className="px-4 py-2 hover:bg-gray-100 transition-colors"
+                        className="px-4 py-2 hover:bg-primary-300/20 transition-colors"
                       >
                         Sign Up
                       </Link>
                       <Link
                         href="/auth/login"
-                        className="px-4 py-2 hover:bg-gray-100 transition-colors"
+                        className="px-4 py-2 hover:bg-primary-300/20 transition-colors"
                       >
                         Login
                       </Link>
@@ -323,7 +328,7 @@ export default function Navbar() {
           {/* Search & Icons */}
           <div className="flex items-center">
             <motion.div
-              className="desktop-visibility flex items-center bg-gray-100 rounded px-3 py-2"
+              className="desktop-visibility flex items-center bg-white/5 border border-white/20 backdrop-blur-sm rounded-md px-3 py-2"
               whileHover={{ scale: 1.02 }}
             >
               <input
@@ -335,14 +340,14 @@ export default function Navbar() {
                 className="bg-transparent outline-none text-sm w-48"
               />
               <button onClick={handleSearch}>
-                <Search className="w-4 h-4 text-gray-600" />
+                <Search className="w-4 h-4 text-white" />
               </button>
             </motion.div>
 
             <motion.div variants={itemVariants}>
               <Link href="/wishlist">
                 <motion.button
-                  className={`p-2 hover:bg-gray-100 rounded-full transition-colors relative ${isActive('/wishlist') ? 'text-primary-300' : ''
+                  className={`p-2 hover:bg-primary-300/20 rounded-full transition-colors relative ${isActive('/wishlist') ? 'text-primary-300' : ''
                     }`}
                   aria-label="Wishlist"
                   variants={iconVariants}
@@ -359,7 +364,7 @@ export default function Navbar() {
             <motion.div variants={itemVariants}>
               <motion.button
                 onClick={() => setIsCartOpen(true)}
-                className="p-2 hover:bg-gray-100 rounded-full transition-colors"
+                className="p-2 hover:bg-primary-300/20 rounded-full transition-colors"
                 aria-label="Cart"
                 variants={iconVariants}
                 whileHover="hover"
@@ -385,8 +390,8 @@ export default function Navbar() {
         </div>
 
         {/* Mobile Search Bar */}
-        <motion.div
-          className="md:hidden mt-3 flex items-center bg-gray-100 rounded px-3 py-2"
+        {show && <motion.div
+          className="md:hidden mt-3 flex items-center bg-white/5 border border-white/20 backdrop-blur-sm rounded-md px-3 py-2"
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
@@ -396,8 +401,8 @@ export default function Navbar() {
             placeholder="What are you looking for?"
             className="bg-transparent outline-none text-sm flex-1"
           />
-          <Search className="w-5 h-5 text-gray-600" />
-        </motion.div>
+          <Search className="w-5 h-5 text-white" />
+        </motion.div>}
       </motion.nav>
 
       {/* Mobile Sidebar */}
@@ -412,13 +417,14 @@ export default function Navbar() {
             onClick={toggleMenu}
           >
             <motion.div
-              className="relative touch-none left-0 top-0 h-full w-80 bg-white shadow-lg"
+              className="relative touch-none left-0 top-0 h-full w-80 bg-black shadow-lg"
               variants={mobileMenuVariants}
               initial="hidden"
               animate="visible"
               exit="exit"
               onClick={(e) => e.stopPropagation()}
             >
+              <div className="bg-primary-300 w-48 h-48 fixed rounded-full opacity-50 blur-[100px] top-32" />
               {/* Header */}
               <motion.div
                 className="flex items-center justify-between py-4 pr-4"
@@ -428,7 +434,7 @@ export default function Navbar() {
               >
                 <div className="flex items-center">
                   <Image src="/images/logos/logo.png" width={50} height={30} alt="GoChinaMarket" />
-                  <p className="text-black font-bold">{settings?.siteName}</p>
+                  <p className="text-primary-300 font-bold">{settings?.siteName}</p>
                 </div>
                 <motion.button
                   onClick={toggleMenu}
@@ -437,7 +443,7 @@ export default function Navbar() {
                   whileHover={{ scale: 1.1, rotate: 90 }}
                   whileTap={{ scale: 0.9 }}
                 >
-                  <X className="w-5 h-5" />
+                  <X className="w-5 h-5" color='#30d9dc' />
                 </motion.button>
               </motion.div>
 
@@ -455,7 +461,7 @@ export default function Navbar() {
                     >
                       <Link
                         href={item.path}
-                        className={`flex items-center gap-3 py-2 transition-colors ${active ? 'text-primary-300 font-semibold' : 'text-gray-900 hover:text-gray-600'
+                        className={`flex items-center gap-3 py-2 transition-colors ${active ? 'text-primary-300 font-semibold' : 'text-white hover:text-primary-300'
                           }`}
                         onClick={toggleMenu}
                       >
@@ -478,7 +484,7 @@ export default function Navbar() {
                   >
                     <button
                       onClick={openAccount}
-                      className={`flex items-center gap-3 py-2 transition-colors ${isActive('/account') ? 'text-primary-300 font-semibold' : 'text-gray-900 hover:text-gray-600'
+                      className={`flex items-center gap-3 py-2 transition-colors ${isActive('/account') ? 'text-primary-300 font-semibold' : 'text-white hover:text-primary-300'
                         }`}
                     >
                       <div className="flex items-center gap-3">
@@ -498,9 +504,9 @@ export default function Navbar() {
                   >
                     <button
                       onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                      className="flex items-center gap-3 text-gray-900 hover:text-gray-600 py-2"
+                      className="flex items-center gap-3 text-white hover:text-primary-300 py-2"
                     >
-                      <User className="w-4 h-4 text-gray-700" />
+                      <User className="w-4 h-4 text-white" />
                       Sign In <ChevronDown className="w-4 h-4" />
                     </button>
 
@@ -515,13 +521,13 @@ export default function Navbar() {
                         >
                           <Link
                             href="/auth/register"
-                            className="py-1 text-gray-700 hover:text-gray-900"
+                            className="py-1 text-white hover:text-primary-300"
                           >
                             Sign Up
                           </Link>
                           <Link
                             href="/auth/login"
-                            className="py-1 text-gray-700 hover:text-gray-900"
+                            className="py-1 text-white hover:text-primary-300"
                           >
                             Login
                           </Link>

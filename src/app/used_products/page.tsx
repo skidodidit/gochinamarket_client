@@ -29,6 +29,7 @@ export default function ProductListPage() {
     minPrice: undefined as number | undefined,
     maxPrice: undefined as number | undefined,
     inStock: undefined as boolean | undefined,
+    secondHand: true
   });
 
   const [searchInput, setSearchInput] = useState("");
@@ -85,6 +86,7 @@ export default function ProductListPage() {
         minPrice: filters.minPrice,
         maxPrice: filters.maxPrice,
         inStock: filters.inStock,
+        secondHand: true
       });
     };
 
@@ -136,6 +138,7 @@ export default function ProductListPage() {
       minPrice: undefined,
       maxPrice: undefined,
       inStock: undefined,
+      secondHand: true,
     });
     setSearchInput("");
   }, []);

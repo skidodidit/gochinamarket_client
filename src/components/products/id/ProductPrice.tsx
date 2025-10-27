@@ -20,7 +20,7 @@ export default function ProductPrice({ price, discount, discountedPrice, size = 
             ${price.toFixed(2)}
           </span>
           {size === "default" && (
-            <span className="bg-red-100 text-red-600 px-2 py-1 rounded-full text-sm font-semibold">
+            <span className="bg-red-500/20 text-red-500 px-2 py-1 rounded-full text-sm font-semibold">
               -{discount}% OFF
             </span>
           )}

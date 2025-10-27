@@ -13,8 +13,8 @@ import Banner from "@/components/Home/Banner";
 import { useApi } from "@/hooks/useApi";
 import { getAllProducts } from "@/lib/api/product";
 import { getCategories } from "@/lib/api/category";
-import ContactInfo from "@/components/Home/Contact";
-import type { Product, Category } from "@/types";
+import PopupAd from "@/components/Home/PopupAd";
+import Advert from "@/components/Home/Adverts";
 
 export default function Home() {
   const [showButton, setShowButton] = useState(false);
@@ -38,6 +38,12 @@ export default function Home() {
   } = useApi(getAllProducts);
 
   const {
+    data: popupData,
+    run: fetchPopupProducts,
+    loading: popupLoading,
+  } = useApi(getAllProducts);
+
+  const {
     data: categoriesData,
     loading: categoriesLoading,
     run: fetchCategories,
@@ -50,13 +56,14 @@ export default function Home() {
   useEffect(() => {
     fetchBannerProducts({ isBanner: true, limit: 10, sortBy: "createdAt", sortOrder: "desc" });
     fetchDiscountedProducts({ discounted: true, limit: 10, sortBy: "createdAt", sortOrder: "desc" });
+    fetchPopupProducts({ isPopup: true });
     fetchNewestProducts({ page: 1, limit: 4, sortBy: "createdAt", sortOrder: "desc" });
   }, []);
 
   const bannerProducts = bannerData?.data || [];
   const discountedProducts = discountedData?.data || [];
   const newProducts = newestData?.data?.slice(0, 4) || [];
-
+  const popup = popupData?.data?.[0];
 
   useEffect(() => {
     const handleScroll = () => {
@@ -78,8 +85,12 @@ export default function Home() {
   const categories = categoriesData || [];
 
   return (
-    <div className="text-black relative">
-      <Navbar />
+    <div className="text-white relative bg-darkBackground">
+      <div className="bg-primary-300 md:w-[50dvh] md:h-[50dvh] w-[40dvh] h-[40dvh] fixed rounded-full opacity-50 blur-[170px] md:top-1/4 top-1/3 md:right-1/4" />
+      <div className="bg-primary-300 w-48 h-48 fixed rounded-full opacity-50 blur-[150px] -top-10" />
+
+      <Navbar/>
+      <Advert/>
       <HeroSection
         bannerProducts={bannerProducts}
         categories={categories}
@@ -110,6 +121,7 @@ export default function Home() {
       >
         <ArrowUp size={20} />
       </button>
+      {popupData?.data?.length && <PopupAd popup={popup}/>}
 
     </div>
   );

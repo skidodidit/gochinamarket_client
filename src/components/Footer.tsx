@@ -3,10 +3,10 @@ import Image from 'next/image';
 import { useGlobalStore } from '@/store/useGlobalStore';
 
 export default function Footer() {
-  const {contacts, settings}= useGlobalStore()
+  const { contacts, settings } = useGlobalStore()
 
   return (
-    <footer className="bg-black text-white ">
+    <footer className="bg-white/5 border-t border-white/20 backdrop-blur-sm text-white ">
       <div className="w-full max-w-7xl mx-auto md:px-10 px-5 py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-12">
           {/* Exclusive - Subscribe */}
@@ -139,7 +139,7 @@ export default function Footer() {
       {/* Copyright */}
       <div className="border-t border-gray-800 py-4">
         <div className="text-center text-gray-600 text-sm">
-          © Copyright Rimel 2022. All right reserved
+          © Copyright {settings?.siteName || 'GoChinaMarket'} {new Date().getFullYear()}. All rights reserved.
         </div>
       </div>
     </footer>

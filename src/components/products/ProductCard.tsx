@@ -14,7 +14,7 @@ export default function ProductCard({ product, onAddToCart, addingToCart }: Prod
     : product.price;
 
   return (
-    <div className="bg-white hover:shadow-lg hover:scale-105 transform transition-transform duration-300 overflow-hidden relative">
+    <div className="bg-white/5 border border-white/20 rounded-xl backdrop-blur-sm hover:shadow-lg hover:scale-105 transform transition-transform duration-300 overflow-hidden relative">
       <Link href={`/products/${product._id}`}>
         <div className="relative">
           {product.images && product.images[0] ? (
@@ -24,7 +24,7 @@ export default function ProductCard({ product, onAddToCart, addingToCart }: Prod
               className="w-full h-48 object-cover"
             />
           ) : (
-            <div className="w-full h-64 bg-gray-200 flex items-center justify-center">
+            <div className="w-full h-48 bg-gray-500 flex items-center justify-center">
               <span className="text-gray-400">No image</span>
             </div>
           )}
@@ -43,7 +43,7 @@ export default function ProductCard({ product, onAddToCart, addingToCart }: Prod
 
       <div className="p-4">
         <Link href={`/products/${product._id}`} className="flex items-center gap-1">
-          <h3 className="font-semibold text-gray-900 hover:text-primary-300 transition line-clamp-2 capitalize">
+          <h3 className="font-semibold text-white hover:text-primary-300 transition line-clamp-2 capitalize">
             {product.name}
           </h3>
           {/* <p className="text-sm text-gray-500">- {product.brand}</p> */}
@@ -67,7 +67,7 @@ export default function ProductCard({ product, onAddToCart, addingToCart }: Prod
                 </svg>
               ))}
             </div>
-            <span className="text-sm text-gray-600 ml-2">
+            <span className="text-sm text-gray-400 ml-2">
               {product.ratingCount}
             </span>
           </div>
@@ -77,8 +77,8 @@ export default function ProductCard({ product, onAddToCart, addingToCart }: Prod
             onClick={() => onAddToCart(product._id)}
             disabled={!product.inStock || addingToCart}
             className={`w-8 h-6 font-medium flex items-center justify-center transition rounded-full ${product.inStock
-                ? "border border-black text-black hover:bg-black/60"
-                : "bg-gray-300 text-gray-500 cursor-not-allowed"
+                ? "border border-primary-300 text-primary-300 hover:bg-white/20"
+                : "bg-gray-400 text-gray-500 cursor-not-allowed"
               }`}
           >
             {addingToCart ? "..." : product.inStock ? <ShoppingCart size={16} /> : <ShoppingCart size={16} />}
@@ -90,7 +90,7 @@ export default function ProductCard({ product, onAddToCart, addingToCart }: Prod
           <div>
             {product.discount ? (
               <div className="flex items-center gap-2">
-                <span className="text-lg font-bold text-gray-900">
+                <span className="text-lg font-bold text-primary-300">
                   ${discountedPrice.toFixed(2)}
                 </span>
                 <span className="text-xs md:text-sm text-gray-500 line-through">
@@ -98,7 +98,7 @@ export default function ProductCard({ product, onAddToCart, addingToCart }: Prod
                 </span>
               </div>
             ) : (
-              <span className="text-lg font-bold text-gray-900">
+              <span className="text-lg font-bold text-white">
                 ${product.price.toFixed(2)}
               </span>
             )}

@@ -39,7 +39,7 @@ export default function LoginPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     // Basic validation
     if (!formData.email || !formData.password) {
       toast('Please fill in all required fields');
@@ -55,25 +55,27 @@ export default function LoginPage() {
 
     const data = await runLogin(formData);
     console.log(data);
-    if(data && data.token){
+    if (data && data.token) {
       localStorage.setItem('token', data.token)
       localStorage.setItem('isAuthenticated', 'true')
       notifySuccess("Login Successful")
       router.push('/')
     }
-    if(error){
+    if (error) {
       notifyError(error)
     }
   };
 
   return (
-    <>
-      <Navbar/>
-      <div className="md:h-[80dvh] h-[100dvh] bg-gray-50 relative overflow-hidden flex items-center justify-center">
-        <div className="relative z-10 md:p-2 overflow-y-auto flex md:items-center md:justify-between w-[90%] md:w-[70%] md:h-[70dvh] bg-white backdrop-blur-md">
+    <div className='bg-darkBackground'>
+      <div className="bg-primary-300 md:w-[50dvh] md:h-[50dvh] w-[40dvh] h-[40dvh] fixed rounded-full opacity-50 blur-[170px] md:top-1/4 top-1/3 md:right-1/4" />
+      <div className="bg-primary-300 w-48 h-48 fixed rounded-full opacity-50 blur-[150px] -top-10" />
+      <Navbar />
+      <div className="md:h-[80dvh] h-[100dvh] relative overflow-hidden flex items-center justify-center">
+        <div className="relative z-10 md:p-2 overflow-y-auto flex md:items-center md:justify-between w-[90%] md:w-[70%] md:h-[70dvh] bg-white/5 rounded-xl border border-white/5 backdrop-blur-md">
           {/* Left Panel - Hidden on Mobile */}
           <div className="desktop-visibility relative h-full w-[45%]">
-            <div className="relative flex flex-col justify-center items-center text-center p-12 h-full w-full">
+            <div className="relative flex flex-col rounded-lg overflow-hidden justify-center items-center text-center p-12 h-full w-full">
               <Image
                 src="/images/auth.png"
                 alt="Mountain landscape"
@@ -96,8 +98,8 @@ export default function LoginPage() {
               {/* Glassmorphism Form Container */}
               <div className="overflow-y-auto h-[80dvh] md:h-[60dvh]">
                 <div className="mb-8">
-                  <h1 className="text-3xl font-bold text-black mb-2">Welcome Back</h1>
-                  <p className="text-gray-500">
+                  <h1 className="text-3xl font-bold text-primary-300 mb-2">Welcome Back</h1>
+                  <p className="text-gray-200">
                     Don't have an account?{' '}
                     <Link href={'/auth/register'} className="text-primary-300 hover:underline cursor-pointer">
                       Sign up
@@ -128,7 +130,7 @@ export default function LoginPage() {
                       value={formData.email}
                       onChange={handleInputChange}
                       required
-                      className="w-full p-4 bg-gray-100 border border-white/10 rounded-lg text-black placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-300 focus:border-transparent backdrop-blur-sm"
+                      className="w-full p-4 bg-white/5 border border-white/5 text-white backdrop-blur-sm rounded-lg text-black placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-300 focus:border-transparent backdrop-blur-sm"
                       placeholder="Email"
                     />
                   </div>
@@ -141,7 +143,7 @@ export default function LoginPage() {
                       value={formData.password}
                       onChange={handleInputChange}
                       required
-                      className="w-full p-4 bg-gray-100 border border-white/10 rounded-lg text-black placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-300 focus:border-transparent backdrop-blur-sm pr-12"
+                      className="w-full p-4 bg-white/5 border border-white/5 text-white backdrop-blur-sm rounded-lg text-black placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-300 focus:border-transparent backdrop-blur-sm pr-12"
                       placeholder="Password"
                     />
                     <button
@@ -176,7 +178,7 @@ export default function LoginPage() {
                   <button
                     type="submit"
                     disabled={loading}
-                    className="w-full bg-primary-300 text-black py-4 px-6 flex items-center justify-center space-x-2 hover:bg-primary-300/60 transition-all hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="w-full bg-primary-300 rounded-lg text-black py-4 px-6 flex items-center justify-center space-x-2 hover:bg-primary-300/60 transition-all hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     {loading ? (
                       <>
@@ -195,7 +197,7 @@ export default function LoginPage() {
           </div>
         </div>
       </div>
-      <Footer/>
-    </>
+      <Footer />
+    </div>
   );
 }

@@ -85,12 +85,13 @@ const Cart: React.FC<Props> = ({ isOpen, setIsOpen }) => {
 
             {/* Cart Sidebar */}
             <div
-                className={`fixed touch-none top-0 right-0 h-full w-full md:w-96 bg-white shadow-2xl z-50 flex flex-col transform transition-transform duration-300 ease-in-out ${isOpen ? 'translate-x-0' : 'translate-x-full'
+                className={`fixed touch-none top-0 right-0 h-full w-full md:w-96 bg-darkBackground text-white shadow-2xl z-50 flex flex-col transform transition-transform duration-300 ease-in-out ${isOpen ? 'translate-x-0' : 'translate-x-full'
                     }`}
             >
+                <div className="bg-primary-300 w-48 h-48 fixed rounded-full opacity-50 blur-[100px] top-32" />
                 {/* Header */}
-                <div className="flex items-center justify-between p-6 border-b border-gray-200">
-                    <h2 className="text-xl font-semibold text-gray-900">
+                <div className="flex items-center justify-between px-6 py-5 border-b border-white/20 bg-white/5">
+                    <h2 className="text-lg font-semibold text-primary-300">
                         Shopping Cart ({itemCount})
                     </h2>
                     <button
@@ -98,23 +99,23 @@ const Cart: React.FC<Props> = ({ isOpen, setIsOpen }) => {
                         className="p-2 hover:bg-gray-100 rounded-full transition-colors"
                         disabled={isLoading}
                     >
-                        <X className="w-5 h-5 text-gray-600" />
+                        <X className="w-5 h-5 text-primary-300" />
                     </button>
                 </div>
 
                 {/* Cart Items */}
-                <div className="flex-1 overflow-y-auto p-6 touch-none">
+                <div className="flex-1 overflow-y-auto pb-6 pt-4 px-4 touch-none">
                     {isLoading && cartItems.length === 0 ? (
-                        <div className="text-center text-gray-500 mt-8">
+                        <div className="text-center text-primary-300 mt-8">
                             <p>Loading cart...</p>
                         </div>
                     ) : cartItems.length === 0 ? (
-                        <div className="text-center text-gray-500 mt-8">
+                        <div className="text-center text-gray-200 mt-8">
                             <p>Your cart is empty</p>
                         </div>
                     ) : (
-                        <div className="space-y-6">
-                            {cartItems.map((item) => (
+                        <div className="space-y-2">
+                            {cartItems?.map((item) => (
                                 <CartItem
                                     key={item.product._id}
                                     item={item}
@@ -129,16 +130,16 @@ const Cart: React.FC<Props> = ({ isOpen, setIsOpen }) => {
 
                 {/* Footer */}
                 {cartItems.length > 0 && (
-                    <div className="border-t border-gray-200 p-6 space-y-4">
+                    <div className="border-t border-white/20 backdrop-blur-sm bg-white/5 px-6 py-4 space-y-4">
                         {/* Subtotal */}
-                        <div className="flex items-center justify-between text-lg font-semibold text-gray-900">
-                            <span>Subtotal ({itemCount} item{itemCount !== 1 ? 's' : ''})</span>
+                        <div className="flex items-center justify-between font-semibold text-primary-300">
+                            <span className='text-white'>Subtotal ({itemCount} item{itemCount !== 1 ? 's' : ''})</span>
                             <span>${subtotal.toFixed(2)}</span>
                         </div>
 
                         {/* Checkout Button */}
                         <button
-                            className="w-full bg-primary-300 text-black py-3 px-4 font-medium hover:bg-primary-300/60 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                            className="w-full bg-primary-300 text-black rounded-lg py-3 px-4 font-medium hover:bg-primary-300/60 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                             disabled={isLoading}
                         >
                             {isLoading ? 'Processing...' : 'Checkout'}
@@ -163,9 +164,9 @@ const CartItem: React.FC<CartItemProps> = ({ item, onUpdateQuantity, onRemoveIte
     const mainImage = product.images[0]?.url || '/api/placeholder/80/60';
 
     return (
-        <div className="flex items-start space-x-4">
+        <div className="flex items-start space-x-4 bg-white/5 border border-white/10 rounded-xl p-2">
             {/* Product Image */}
-            <div className="w-20 h-16 bg-gray-100 flex items-center justify-center flex-shrink-0 overflow-hidden">
+            <div className="w-20 h-16 bg-white/5 rounded-lg flex items-center justify-center flex-shrink-0 overflow-hidden">
                 <img
                     src={mainImage}
                     alt={product.name}
@@ -175,33 +176,33 @@ const CartItem: React.FC<CartItemProps> = ({ item, onUpdateQuantity, onRemoveIte
 
             {/* Product Details */}
             <div className="flex-1 min-w-0">
-                <h3 className="text-sm font-medium text-gray-900 line-clamp-2">
+                <h3 className="text-sm font-medium text-xs text-white line-clamp-2">
                     {product.name}
                 </h3>
-                <p className="font-semibold text-gray-900 mt-1">
+                <p className="font-semibold text-white">
                     ${product.price.toFixed(2)}
                 </p>
 
                 {/* Quantity Controls */}
-                <div className="flex items-center space-x-3 mt-1">
+                <div className="flex items-center space-x-3">
                     <button
                         onClick={() => onUpdateQuantity(product._id, quantity - 1)}
-                        className="w-7 h-7 rounded-full border border-gray-300 flex items-center justify-center hover:bg-gray-50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                        className="w-5 h-5 rounded-full border border-gray-300 flex items-center justify-center hover:bg-gray-50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                         disabled={disabled || quantity <= 1}
                     >
-                        <Minus className="w-4 h-4 text-gray-600" />
+                        <Minus className="w-3 h-3 text-white" />
                     </button>
 
-                    <span className="w-8 text-center font-medium text-gray-900">
+                    <span className="w-8 text-center font-medium text-primary-300">
                         {quantity}
                     </span>
 
                     <button
                         onClick={() => onUpdateQuantity(product._id, quantity + 1)}
-                        className="w-7 h-7 rounded-full border border-gray-300 flex items-center justify-center hover:bg-gray-50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                        className="w-5 h-5 rounded-full border border-gray-300 flex items-center justify-center hover:bg-gray-50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                         disabled={disabled}
                     >
-                        <Plus className="w-4 h-4 text-gray-600" />
+                        <Plus className="w-3 h-3 text-white" />
                     </button>
                 </div>
             </div>

@@ -53,9 +53,9 @@ export default function ProductInfo({
 
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 text-white">
       {/* Header Section */}
-      <div className="border-b border-gray-200 pb-6">
+      <div className="border-b border-gray-500 pb-6">
         <div className="flex items-start justify-between mb-2">
           <h1 className="text-2xl md:text-3xl font-bold capitalize flex-1">
             {product.name}
@@ -66,7 +66,7 @@ export default function ProductInfo({
         {/* Brand and Stock Status */}
         <div className="flex items-center gap-4 mb-3">
           {product.brand && (
-            <span className="text-lg text-gray-600 font-medium">{product.brand}</span>
+            <span className="text-lg text-gray-400 font-medium">{product.brand}</span>
           )}
           <StockStatus inStock={product.inStock} />
         </div>
@@ -80,7 +80,7 @@ export default function ProductInfo({
       </div>
 
       {/* Price Section */}
-      <div className="border-b border-gray-200 pb-6">
+      <div className="border-b border-gray-500 pb-6">
         <ProductPrice
           price={product.price}
           discount={product.discount}
@@ -90,7 +90,7 @@ export default function ProductInfo({
         {/* Savings Badge */}
         {product.discount! > 0 && (
           <div className="mt-2">
-            <span className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium">
+            <span className="bg-green-500/20 text-green-500 px-3 py-1 rounded-full text-sm font-medium">
               Save ${(product.price - discountedPrice).toFixed(2)} ({product.discount}% off)
             </span>
           </div>
@@ -99,15 +99,15 @@ export default function ProductInfo({
 
 
       {/* Description */}
-      <div className="border-b border-gray-200 pb-6">
+      <div className="border-b border-gray-500 pb-6">
         <h3 className="font-semibold text-lg mb-3">Description</h3>
-        <p className="text-gray-700 leading-relaxed">
+        <p className="text-gray-400 leading-relaxed">
           {product.description}
         </p>
       </div>
 
       {/* Quantity and Actions */}
-      <div className="border-b border-gray-200 pb-6">
+      <div className="border-b border-gray-500 pb-6">
         <div className="flex flex-wrap items-center gap-4 mb-4">
           <div className="flex items-center gap-3">
             <span className="font-semibold">Quantity:</span>
@@ -236,12 +236,12 @@ function ShareButton() {
   return (
     <button
       onClick={handleShare}
-      className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center hover:bg-gray-200 transition-colors relative"
+      className="w-10 h-10 rounded-full bg-primary-300 flex items-center justify-center hover:bg-gray-200 transition-colors relative"
       title="Copy link"
     >
-      <Share2 className="w-4 h-4" />
+      <Share2 className="w-4 h-4" color="black"/>
       {copied && (
-        <span className="absolute -top-7 text-xs bg-gray-800 text-white px-2 py-1 rounded">
+        <span className="absolute -top-7 text-xs bg-gray-600 text-white px-2 py-1 rounded">
           Copied!
         </span>
       )}
@@ -252,8 +252,8 @@ function ShareButton() {
 function StockStatus({ inStock }: { inStock: boolean }) {
   return (
     <div className={`flex items-center gap-1 px-2 py-1 rounded-full text-sm font-medium ${inStock
-      ? "bg-green-100 text-green-800"
-      : "bg-red-100 text-red-800"
+      ? "bg-green-500/20 text-green-500"
+      : "bg-red-500/20 text-red-500"
       }`}>
       <div className={`w-2 h-2 rounded-full ${inStock ? "bg-green-500" : "bg-red-500"}`} />
       {inStock ? "In Stock" : "Out of Stock"}

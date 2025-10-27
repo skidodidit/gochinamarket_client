@@ -208,7 +208,7 @@ export default function ProductShowcase({ products, loading }: ProductShowcasePr
             <div className="w-5 h-10 bg-primary-300 rounded"></div>
             <span className="text-primary-300 font-semibold">Today's</span>
           </div>
-          <h2 className="text-3xl lg:text-4xl font-bold">Discount Sales</h2>
+          <h2 className="text-3xl lg:text-4xl font-bold text-primary-300">Discount Sales</h2>
         </div>
 
         {/* Countdown Timer */}
@@ -238,14 +238,14 @@ export default function ProductShowcase({ products, loading }: ProductShowcasePr
             <button
               onClick={scrollLeft}
               disabled={currentIndex === 0}
-              className="w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center transition-colors"
+              className="w-10 h-10 text-black rounded-full bg-gray-100/40 hover:bg-gray-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center transition-colors"
             >
               <ChevronLeft className="w-5 h-5" />
             </button>
             <button
               onClick={scrollRight}
               disabled={currentIndex >= products.length - 4}
-              className="w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center transition-colors"
+              className="w-10 h-10 text-black rounded-full bg-gray-100/40 hover:bg-gray-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center transition-colors"
             >
               <ChevronRight className="w-5 h-5" />
             </button>
@@ -282,7 +282,7 @@ export default function ProductShowcase({ products, loading }: ProductShowcasePr
                     }
                   }
                 }}
-                className="min-w-[calc(56%-1.5rem)] sm:min-w-[calc(50%-0.75rem)] md:min-w-[calc(20%-1.125rem)] bg-white overflow-hidden group"
+                className="min-w-[calc(56%-1.5rem)] sm:min-w-[calc(50%-0.75rem)] md:min-w-[calc(20%-1.125rem)] bg-white/5 rounded-xl border border-white/20 backdrop-blur-sm overflow-hidden group"
                 onMouseEnter={() => setHoveredProduct(product._id)}
                 onMouseLeave={() => setHoveredProduct(null)}
               >
@@ -294,7 +294,7 @@ export default function ProductShowcase({ products, loading }: ProductShowcasePr
                     </div>
                   )}
                   <div className="absolute top-3 right-3 flex flex-col gap-2">
-                    <Link href={`/products/${product._id}`} className="w-8 h-8 bg-white rounded-full flex items-center justify-center hover:bg-red-500 hover:text-white transition-colors">
+                    <Link href={`/products/${product._id}`} className="w-8 h-8 bg-black rounded-full flex items-center justify-center hover:bg-primary-300 hover:text-white transition-colors">
                       <Eye className="w-4 h-4" />
                     </Link>
                   </div>
@@ -311,7 +311,7 @@ export default function ProductShowcase({ products, loading }: ProductShowcasePr
                 <div className="p-4">
                   <h3 className="font-semibold mb-2 text-sm capitalize">{product.name}</h3>
                   <div className="flex items-center gap-3 mb-2">
-                    <span className="text-red-500 font-semibold text-lg">
+                    <span className="text-primary-300 font-semibold text-lg">
                       ${discountedPrice.toFixed(2)}
                     </span>
                     {product.discount && product.discount > 0 && (
@@ -337,14 +337,14 @@ export default function ProductShowcase({ products, loading }: ProductShowcasePr
       <motion.div variants={itemVariants} className="flex justify-center">
         <Link 
           href={'/products'} 
-          className="bg-primary-300 text-black px-12 py-4 hover:bg-primary-300/60 transition-colors font-medium"
+          className="bg-primary-300 text-black px-12 md:py-4 py-3 rounded-2xl hover:bg-primary-300/60 transition-colors font-medium"
         >
           View All Products
         </Link>
       </motion.div>
 
       {/* Divider */}
-      <motion.div variants={itemVariants} className="border-t border-gray-200 mt-12"></motion.div>
+      <motion.div variants={itemVariants} className="border-t border-gray-200/40 mt-12"></motion.div>
     </motion.div>
   );
 }

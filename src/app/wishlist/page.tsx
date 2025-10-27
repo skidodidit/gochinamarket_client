@@ -93,7 +93,7 @@ const WishlistPage: React.FC = () => {
     const StarRating: React.FC<StarRatingProps> = ({ rating, reviewCount }) => (
         <div className="flex items-center gap-1">
             {[...Array(5)].map((_, i) => (
-                <span key={i} className="text-yellow-400 text-sm">
+                <span key={i} className="text-yellow-400 text-xs">
                     {i < Math.floor(rating) ? "★" : "☆"}
                 </span>
             ))}
@@ -118,7 +118,7 @@ const WishlistPage: React.FC = () => {
             : item.price;
 
         return (
-            <div className="bg-white overflow-hidden group relative">
+            <div className="bg-white/5 rounded-xl border border-white/20 backdrop-blur-sm overflow-hidden group relative">
                 {/* Discount Badge */}
                 {item.discount! > 0 && (
                     <div className="absolute top-2 left-2 z-10 bg-red-500/60 text-white px-2 py-1 rounded text-xs font-semibold">
@@ -138,18 +138,18 @@ const WishlistPage: React.FC = () => {
                     {isWishlist ? (
                         <button
                             onClick={() => handleRemoveFromWishlist(item._id)}
-                            className="w-8 h-8 bg-white rounded-full flex items-center justify-center shadow-md hover:bg-gray-50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                            className="w-8 h-8 bg-black rounded-full flex items-center justify-center shadow-md hover:bg-primary-300/20 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                             disabled={isLoading}
                         >
-                            <Trash2 size={16} />
+                            <Trash2 size={16} color="white"/>
                         </button>
                     ) : (
                         <button
                             onClick={() => handleAddToWishlist(item)}
-                            className="w-8 h-8 bg-white rounded-full flex items-center justify-center shadow-md hover:bg-gray-50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                            className="w-8 h-8 bg-black rounded-full flex items-center justify-center shadow-md hover:bg-primary-300/20 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                             disabled={isLoading}
                         >
-                            <Heart size={16} color="black" />
+                            <Heart size={16} color="white" />
                         </button>
                     )}
                 </div>
@@ -163,38 +163,42 @@ const WishlistPage: React.FC = () => {
                             className="w-full h-48 object-cover"
                         />
                     ) : (
-                        <div className="w-full h-64 bg-gray-200 flex items-center justify-center">
+                        <div className="w-full h-48 bg-gray-500 flex items-center justify-center">
                             <span className="text-gray-400">No image</span>
                         </div>
                     )}
                 </div>
 
-                {/* Add to Cart Button */}
-                <button
-                    onClick={() => handleAddToCart(item)}
-                    disabled={isLoading || !item.inStock}
-                    className="w-full bg-black text-white py-3 flex items-center justify-center gap-2 hover:bg-gray-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                    <ShoppingCart size={18} />
-                    {addingToCart ? "Adding..." : "Add To Cart"}
-                </button>
-
                 {/* Product Info */}
                 <div className="p-4">
-                    <h3 className="font-medium text-gray-900 mb-2 line-clamp-2">
+                    <h3 className="font-medium text-white mb-2 line-clamp-2">
                         {item.name}
                     </h3>
                     <div className="flex items-center gap-2 mb-2">
-                        <span className="text-red-500 font-semibold">${currentPrice.toFixed(2)}</span>
+                        <span className="text-primary-300 font-semibold">${currentPrice.toFixed(2)}</span>
                         {item.discount && (
                             <span className="text-gray-400 line-through text-sm">
                                 ${item.price.toFixed(2)}
                             </span>
                         )}
                     </div>
-                    {item.rating && (
-                        <StarRating rating={item.rating} reviewCount={item.ratingCount} />
-                    )}
+                    <div className="flex items-center justify-between">
+                        {item.rating && (
+                            <StarRating rating={item.rating} reviewCount={item.ratingCount} />
+                        )}
+                        {/* Add to Cart Button */}
+                        <button
+                            onClick={() => handleAddToCart(item)}
+                            disabled={!item.inStock || addingToCart}
+                            className={`w-8 h-6 font-medium flex items-center justify-center transition rounded-full ${item.inStock
+                                ? "border border-primary-300 text-primary-300 hover:bg-white/20"
+                                : "bg-gray-400 text-gray-500 cursor-not-allowed"
+                                }`}
+                        >
+                            {addingToCart ? "..." : item.inStock ? <ShoppingCart size={16} /> : <ShoppingCart size={16} />}
+
+                        </button>
+                    </div>
                     {!item.inStock && (
                         <p className="text-red-500 text-sm mt-1">Out of Stock</p>
                     )}
@@ -204,7 +208,9 @@ const WishlistPage: React.FC = () => {
     };
 
     return (
-        <>
+        <div className="bg-darkBackground relative">
+            <div className="bg-primary-300 md:w-[50dvh] md:h-[50dvh] w-[40dvh] h-[40dvh] fixed rounded-full opacity-50 blur-[170px] md:top-1/4 top-1/3 md:right-1/4" />
+            <div className="bg-primary-300 w-48 h-48 fixed rounded-full opacity-50 blur-[150px] -top-10" />
             <Navbar />
             <div className="max-w-7xl mx-auto px-4 py-8">
                 {/* Wishlist Section */}
@@ -270,7 +276,7 @@ const WishlistPage: React.FC = () => {
                 </div>
             </div>
             <Footer />
-        </>
+        </div>
     );
 };
 

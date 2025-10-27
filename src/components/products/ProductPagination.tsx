@@ -1,3 +1,5 @@
+import { StepBack, StepForward } from "lucide-react";
+
 interface ProductPaginationProps {
   currentPage: number;
   totalPages: number;
@@ -31,13 +33,13 @@ export default function ProductPagination({
       <button
         onClick={() => onPageChange(Math.max(1, currentPage - 1))}
         disabled={currentPage === 1}
-        className={`px-4 py-2 rounded-lg font-medium transition ${
+        className={`px-2 py-2 rounded-lg font-medium transition ${
           currentPage === 1
-            ? "bg-gray-200 text-gray-400 cursor-not-allowed"
-            : "bg-white text-gray-700 hover:bg-gray-100 border border-gray-300"
+            ? "bg-gray-500/60 text-gray-400 cursor-not-allowed"
+            : "bg-black text-white hover:bg-white/20 border border-gray-500"
         }`}
       >
-        Previous
+        <StepBack className="w-4 h-4"/>
       </button>
 
       <div className="flex gap-1">
@@ -45,10 +47,10 @@ export default function ProductPagination({
           <button
             key={pageNum}
             onClick={() => onPageChange(pageNum)}
-            className={`px-4 py-2 rounded-lg font-medium transition ${
+            className={`w-12 h-10 rounded-lg font-medium transition text-sm ${
               currentPage === pageNum
                 ? "bg-primary-300 text-black"
-                : "bg-white text-gray-700 hover:bg-gray-100 border border-gray-300"
+                : "bg-black text-white hover:bg-white/20 border border-gray-300"
             }`}
           >
             {pageNum}
@@ -59,13 +61,13 @@ export default function ProductPagination({
       <button
         onClick={() => onPageChange(Math.min(totalPages, currentPage + 1))}
         disabled={currentPage === totalPages}
-        className={`px-4 py-2 rounded-lg font-medium transition ${
+        className={`px-2 py-2 rounded-lg font-medium transition ${
           currentPage === totalPages
-            ? "bg-gray-200 text-gray-400 cursor-not-allowed"
-            : "bg-white text-gray-700 hover:bg-gray-100 border border-gray-300"
+            ? "bg-gray-500/60 text-gray-400 cursor-not-allowed"
+            : "bg-black text-white hover:bg-white/20 border border-gray-500"
         }`}
       >
-        Next
+        <StepForward className="w-4 h-4"/>
       </button>
     </div>
   );
