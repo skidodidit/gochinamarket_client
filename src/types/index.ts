@@ -18,14 +18,24 @@ export interface Product {
   price: number;
   discount?: number;
   category: string;
+
   images: Media[];
   videos?: Media[];
+
   inStock: boolean;
+  secondHand: boolean;
+
   isBanner: boolean;
+  isAd: boolean;
+  isPopup: boolean;
+  popupText?: string;
+  adText?: string;
   bannerText?: string;
+
   rating: number;
   reviews: number;
   ratingCount: number;
+
   createdAt?: string;
   updatedAt?: string;
 }

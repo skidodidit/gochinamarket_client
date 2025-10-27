@@ -64,9 +64,9 @@ function RelatedProductCard({ product, favorites, onToggleFavorite }: RelatedPro
     : product.price;
 
   return (
-    <div className="group">
+    <div className="group bg-white/5 border border-white/20 rounded-xl backdrop-blur-sm hover:shadow-lg hover:scale-105 transform transition-transform duration-300 overflow-hidden relative">
       <div className="relative bg-gray-100 mb-4 flex items-center justify-center h-54 overflow-hidden">
-        {product.discount && product.discount > 0 && (
+        {product.discount! > 0 && (
           <div className="bg-red-500/60 absolute top-3 left-3 text-xs font-semibold px-3 py-1 z-10">
             <span className="text-white">
               -{product.discount}%
@@ -130,9 +130,9 @@ function ViewButton({ productId }: { productId: string }) {
 
 function ProductCardInfo({ product, discountedPrice }: { product: Product; discountedPrice: number }) {
   return (
-    <div>
+    <div className="px-4 pb-5">
       <Link href={`/products/${product._id}`}>
-        <h3 className="font-semibold mb-2 hover:text-red-500 transition line-clamp-2">
+        <h3 className="font-semibold mb-2 text-white transition line-clamp-2">
           {product.name}
         </h3>
       </Link>

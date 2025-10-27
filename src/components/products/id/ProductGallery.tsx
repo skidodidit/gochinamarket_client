@@ -22,8 +22,8 @@ export default function ProductGallery({ product }: ProductGalleryProps) {
           <button
             key={index}
             onClick={() => setSelectedImage(index)}
-            className={`flex-shrink-0 w-20 h-20 md:w-24 md:h-24 bg-gray-100 flex items-center justify-center overflow-hidden hover:border-2 hover:border-gray-300 transition-all ${
-              selectedImage === index ? "border-2 border-black" : ""
+            className={`flex-shrink-0 w-20 h-20 md:w-24 md:h-24 bg-gray-100 flex items-center justify-center rounded-lg overflow-hidden hover:border-2 hover:border-gray-300 transition-all ${
+              selectedImage === index ? "border-2 border-primary-300" : ""
             }`}
           >
             {media.type?.startsWith("video") ? (
@@ -44,7 +44,7 @@ export default function ProductGallery({ product }: ProductGalleryProps) {
       </div>
 
       {/* Main Image/Video */}
-      <div className="flex-1 bg-gray-100 flex items-center justify-center min-h-[300px] md:min-h-[400px] md:max-h-[400px] overflow-hidden">
+      <div className="flex-1 bg-white/10 backdrop-blur-sm flex items-center rounded-xl justify-center min-h-[300px] md:min-h-[400px] md:max-h-[400px] overflow-hidden">
         {allMedia.length > 0 ? (
           allMedia[selectedImage]?.type?.startsWith("video") ? (
             <video

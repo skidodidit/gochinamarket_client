@@ -63,13 +63,13 @@ const HeroSection = ({ bannerProducts, categories, loading }: HeroSectionProps) 
   };
 
   return (
-    <div className="w-full bg-gray-50 py-4 md:py-8 md:px-10">
+    <div className="w-full pb-4 md:pb-8 md:pt-5 md:px-10">
       <div className="max-w-7xl mx-auto px-5">
         {/* Mobile Layout */}
         <div className="md:hidden">
           {/* Main Banner */}
           <motion.div
-            className="relative h-[20dvh] overflow-hidden mb-4 bg-gradient-to-r from-gray-500 to-gray-800"
+            className="relative h-[20dvh] overflow-hidden mb-4 bg-white/5 border border-white/20 rounded-xl"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
@@ -93,7 +93,7 @@ const HeroSection = ({ bannerProducts, categories, loading }: HeroSectionProps) 
               </motion.p>
               <motion.button
                 onClick={() => mainBannerProduct && handleShopNow(mainBannerProduct._id)}
-                className="bg-cyan-400 hover:bg-cyan-500 text-xs text-black py-1.5 px-5 w-fit transition-colors"
+                className="text-xs text-black py-1.5 px-5 w-fit transition-colors rounded-lg"
                 style={{ backgroundColor: '#30d9dc' }}
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
@@ -119,7 +119,7 @@ const HeroSection = ({ bannerProducts, categories, loading }: HeroSectionProps) 
             {gridProducts?.map((product, idx) => (
               <motion.div
                 key={product._id}
-                className="relative h-36 overflow-hidden bg-gray-200 group"
+                className="relative h-36 overflow-hidden bg-white/5 border border-white/20 rounded-xl group"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 * idx, duration: 0.5 }}
@@ -150,7 +150,7 @@ const HeroSection = ({ bannerProducts, categories, loading }: HeroSectionProps) 
 
             {/* Categories */}
             <motion.div
-              className="bg-white overflow-hidden"
+              className="bg-transparent overflow-hidden"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3, duration: 0.5 }}
@@ -161,7 +161,7 @@ const HeroSection = ({ bannerProducts, categories, loading }: HeroSectionProps) 
                   <motion.div
                     key={category._id}
                     onClick={() => handleCategoryClick(category)}
-                    className={`flex items-center justify-between p-3 cursor-pointer hover:bg-gray-50 transition-colors ${index !== 3 ? 'border-b border-gray-100' : ''
+                    className={`flex items-center justify-between px-3 py-3 cursor-pointer hover:bg-gray-50 transition-colors ${index !== 3 ? '' : ''
                       }`}
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
@@ -170,17 +170,17 @@ const HeroSection = ({ bannerProducts, categories, loading }: HeroSectionProps) 
                   >
                     <div className="flex items-center gap-2">
                       <motion.div
-                        className="w-5.5 h-5.5 flex items-center justify-center"
+                        className="w-6 h-6 flex items-center justify-center rounded-lg"
                         style={{ backgroundColor: '#30d9dc20' }}
                         whileHover={{ scale: 1.1, rotate: 5 }}
                       >
                         <span className="text-base text-primary-300">
-                          <Icon className="w-6 h-6" />
+                          <Icon className="w-4 h-4" />
                         </span>
                       </motion.div>
-                      <span className="font-medium text-gray-700 text-sm capitalize">{category.name}</span>
+                      <span className="font-medium text-primary-300 text-sm capitalize">{category.name}</span>
                     </div>
-                    <ChevronRight className="w-4 h-4 text-gray-400" />
+                    <ChevronRight className="w-4 h-4 text-primary-300" />
                   </motion.div>
                 )
 
@@ -190,7 +190,7 @@ const HeroSection = ({ bannerProducts, categories, loading }: HeroSectionProps) 
             {/* Carousel */}
             {carouselProducts.length > 0 && (
               <motion.div
-                className="relative h-48 overflow-hidden bg-gray-200"
+                className="relative h-48 overflow-hidden bg-white/5 border border-white/20 rounded-xl backdrop-blur-sm"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.5, duration: 0.5 }}
@@ -235,19 +235,19 @@ const HeroSection = ({ bannerProducts, categories, loading }: HeroSectionProps) 
                   <>
                     <motion.button
                       onClick={prevSlide}
-                      className="absolute left-2 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white p-1 rounded-full z-10"
+                      className="absolute left-2 top-1/2 -translate-y-1/2 bg-white/40 hover:bg-white p-1 rounded-full z-10"
                       whileHover={{ scale: 1.1 }}
                       whileTap={{ scale: 0.9 }}
                     >
-                      <ChevronLeft className="w-4 h-4" />
+                      <ChevronLeft className="w-4 h-4 text-black" />
                     </motion.button>
                     <motion.button
                       onClick={nextSlide}
-                      className="absolute right-2 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white p-1 rounded-full z-10"
+                      className="absolute right-2 top-1/2 -translate-y-1/2 bg-white/40 hover:bg-white p-1 rounded-full z-10"
                       whileHover={{ scale: 1.1 }}
                       whileTap={{ scale: 0.9 }}
                     >
-                      <ChevronRight className="w-4 h-4" />
+                      <ChevronRight className="w-4 h-4 text-black" />
                     </motion.button>
                   </>
                 )}
@@ -265,14 +265,14 @@ const HeroSection = ({ bannerProducts, categories, loading }: HeroSectionProps) 
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.2 }}
           >
-            <div className="bg-white overflow-y-auto">
+            <div className="bg-transparent overflow-y-auto">
               {categories?.map((category, index) => {
                 const Icon = getCategoryIcon(category.name);
                 return (
                   <motion.div
                     key={category._id}
                     onClick={() => handleCategoryClick(category)}
-                    className={`flex items-center justify-between px-4 py-3 cursor-pointer hover:bg-gray-50 transition-colors ${index !== categories.length - 1 ? 'border-b border-gray-100' : ''
+                    className={`flex items-center justify-between px-4 py-3 cursor-pointer hover:bg-gray-50 rounded-xl transition-colors ${index !== categories.length - 1 ? '' : ''
                       }`}
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
@@ -284,7 +284,7 @@ const HeroSection = ({ bannerProducts, categories, loading }: HeroSectionProps) 
                   >
                     <div className="flex items-center gap-3">
                       <motion.div
-                        className="w-11 h-11 flex items-center justify-center"
+                        className="w-11 h-11 flex items-center justify-center rounded-xl"
                         style={{ backgroundColor: '#30d9dc16' }}
                         whileHover={{ scale: 1.1, rotate: 5 }}
                       >
@@ -292,9 +292,9 @@ const HeroSection = ({ bannerProducts, categories, loading }: HeroSectionProps) 
                           <Icon className="w-6 h-6"/>
                         </span>
                       </motion.div>
-                      <span className="font-medium text-gray-700 capitalize">{category.name}</span>
+                      <span className="font-medium text-primary-300 capitalize">{category.name}</span>
                     </div>
-                    <ChevronRight className="w-5 h-5 text-gray-400" />
+                    <ChevronRight className="w-5 h-5 text-primary-300" />
                   </motion.div>
                 )
               })}
@@ -306,7 +306,7 @@ const HeroSection = ({ bannerProducts, categories, loading }: HeroSectionProps) 
             <div className='w-[68%]'>
               {/* Main Banner */}
               <motion.div
-                className="relative h-80 overflow-hidden mb-6 bg-gradient-to-r from-gray-800 to-gray-600"
+                className="relative rounded-xl h-80 overflow-hidden mb-6 bg-white/5 border border-white/20"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.2 }}
@@ -330,7 +330,7 @@ const HeroSection = ({ bannerProducts, categories, loading }: HeroSectionProps) 
                   </motion.p>
                   <motion.button
                     onClick={() => mainBannerProduct && handleShopNow(mainBannerProduct._id)}
-                    className="bg-cyan-400 hover:bg-cyan-500 font-semibold text-black py-3 px-8 w-fit transition-colors"
+                    className="bg-cyan-400 hover:bg-cyan-500 font-semibold text-black py-3 px-8 w-fit transition-colors rounded-lg"
                     style={{ backgroundColor: '#30d9dc' }}
                     initial={{ opacity: 0, scale: 0.9 }}
                     animate={{ opacity: 1, scale: 1 }}
@@ -355,7 +355,7 @@ const HeroSection = ({ bannerProducts, categories, loading }: HeroSectionProps) 
                 {gridProducts?.map((product, index) => (
                   <motion.div
                     key={product._id}
-                    className="relative h-64 overflow-hidden bg-gray-200 group"
+                    className="relative h-64 overflow-hidden group bg-white/5 border border-white/20 rounded-xl backdrop-blur-sm"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5 }}
@@ -390,7 +390,7 @@ const HeroSection = ({ bannerProducts, categories, loading }: HeroSectionProps) 
             {/* Carousel */}
             {carouselProducts?.length > 0 && (
               <motion.div
-                className="relative h-full w-[30%] overflow-hidden bg-gray-200"
+                className="relative h-full w-[30%] overflow-hidden bg-white/5 border border-white/20 rounded-xl backdrop-blur-sm"
                 initial={{ opacity: 0, x: 50 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.6, delay: 0.4 }}
@@ -435,19 +435,19 @@ const HeroSection = ({ bannerProducts, categories, loading }: HeroSectionProps) 
                   <>
                     <motion.button
                       onClick={prevSlide}
-                      className="absolute left-3 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white p-2 rounded-full z-10"
+                      className="absolute left-3 top-1/2 -translate-y-1/2 bg-white/40 hover:bg-white p-2 rounded-full z-10"
                       whileHover={{ scale: 1.1 }}
                       whileTap={{ scale: 0.9 }}
                     >
-                      <ChevronLeft className="w-5 h-5" />
+                      <ChevronLeft className="w-4 h-4 text-black" />
                     </motion.button>
                     <motion.button
                       onClick={nextSlide}
-                      className="absolute right-3 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white p-2 rounded-full z-10"
+                      className="absolute right-3 top-1/2 -translate-y-1/2 bg-white/40 hover:bg-white p-2 rounded-full z-10"
                       whileHover={{ scale: 1.1 }}
                       whileTap={{ scale: 0.9 }}
                     >
-                      <ChevronRight className="w-5 h-5" />
+                      <ChevronRight className="w-4 h-4 text-black" />
                     </motion.button>
                   </>
                 )}

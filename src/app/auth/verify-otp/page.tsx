@@ -165,13 +165,15 @@ export default function VerifyOtpPage() {
   };
 
   return (
-    <>
+    <div className='bg-darkBackground'>
+      <div className="bg-primary-300 md:w-[50dvh] md:h-[50dvh] w-[40dvh] h-[40dvh] fixed rounded-full opacity-50 blur-[170px] md:top-1/4 top-1/3 md:right-1/4" />
+      <div className="bg-primary-300 w-48 h-48 fixed rounded-full opacity-50 blur-[150px] -top-10" />
       <Navbar />
-      <div className="md:h-[80dvh] h-[100dvh] bg-gray-50 relative overflow-hidden flex items-center justify-center">
-        <div className="relative z-10 md:p-2 overflow-y-auto flex md:items-center md:justify-between w-[90%] md:w-[70%] md:h-[70dvh] bg-white backdrop-blur-md">
+      <div className="md:h-[80dvh] h-[100dvh] relative overflow-hidden flex items-center justify-center">
+        <div className="relative z-10 md:p-2 overflow-y-auto flex md:items-center md:justify-between w-[90%] md:w-[70%] md:h-[70dvh] bg-white/5 rounded-xl border border-white/5 backdrop-blur-md">
           {/* Left Panel - Hidden on Mobile */}
           <div className="desktop-visibility relative h-full w-[45%]">
-            <div className="relative flex flex-col justify-center items-center text-center p-12 h-full w-full">
+            <div className="relative rounded-lg overflow-hidden flex flex-col justify-center items-center text-center p-12 h-full w-full">
               <Image
                 src="/images/auth.png"
                 alt="Mountain landscape"
@@ -198,8 +200,8 @@ export default function VerifyOtpPage() {
                   <div className="w-12 h-12 bg-primary-300/20 rounded-full flex items-center justify-center mx-auto mb-2">
                     <Mail size={24} className="text-primary-300" />
                   </div>
-                  <h1 className="text-3xl font-bold text-black mb-2">Verify Your Email</h1>
-                  <p className="text-gray-500 mb-4">
+                  <h1 className="text-3xl font-bold text-primary-300 mb-2">Verify Your Email</h1>
+                  <p className="text-gray-200 mb-4">
                     We've sent a 6-digit verification code to
                   </p>
                   <p className="text-primary-300 font-medium">
@@ -238,7 +240,7 @@ export default function VerifyOtpPage() {
                 <form onSubmit={handleSubmit} className="space-y-6 px-1">
                   {/* OTP Input */}
                   <div>
-                    <label className="block text-sm font-medium text-gray-500 mb-4 text-center">
+                    <label className="block text-sm font-medium text-gray-200 mb-4 text-center">
                       Enter verification code
                     </label>
                     <div className="flex justify-center space-x-3" onPaste={handlePaste}>
@@ -255,7 +257,7 @@ export default function VerifyOtpPage() {
                           value={digit}
                           onChange={(e) => handleOtpChange(index, e.target.value)}
                           onKeyDown={(e) => handleKeyDown(index, e)}
-                          className="w-12 h-12 text-center text-xl font-bold bg-gray-100 border border-gray-300 rounded-lg text-black focus:outline-none focus:ring-2 focus:ring-primary-300 focus:border-transparent backdrop-blur-sm"
+                          className="w-12 h-12 text-center text-xl font-bold bg-white/5 border border-white/5 text-white backdrop-blur-sm rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-300 focus:border-transparent backdrop-blur-sm"
                           disabled={loading || success}
                         />
                       ))}
@@ -299,7 +301,7 @@ export default function VerifyOtpPage() {
 
                   {/* Resend OTP */}
                   <div className="text-center">
-                    <p className="text-gray-500 text-sm mb-2">
+                    <p className="text-gray-200 text-sm mb-2">
                       Didn't receive the code?
                     </p>
                     <button
@@ -327,6 +329,6 @@ export default function VerifyOtpPage() {
         </div>
       </div>
       <Footer />
-    </>
+    </div>
   );
 }

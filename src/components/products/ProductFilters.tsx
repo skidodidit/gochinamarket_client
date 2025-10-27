@@ -57,9 +57,45 @@ export default function ProductFilters({
   ].filter(Boolean).length;
 
   return (
-    <div className="bg-white rounded-xl border border-gray-100 p-4 mb-6 shadow-sm">
-      {/* Main Filter Bar */}
-      <div className="flex flex-col lg:flex-row gap-4 items-start lg:items-center">
+    <div className="bg-white/5 backdrop-blur-sm rounded-xl border border-white/5 md:p-2 p-1 mb-6 shadow-sm md:mt-0 -mt-4">
+      {/* Mobile: Search and Filter Button Only */}
+      <div className="flex items-center gap-3 lg:hidden">
+        {/* Search - Takes most space */}
+        <div className="flex-1">
+          <div className="relative">
+            <input
+              type="text"
+              placeholder="Search products..."
+              value={searchInput}
+              onChange={(e) => onSearchInputChange(e.target.value)}
+              onKeyPress={(e) => e.key === "Enter" && onSearch()}
+              className="w-full pl-2 pr-4 py-2.5 bg-white/5 border-0 rounded-lg outline-none focus:ring-1 focus:ring-primary-300 transition-all text-sm"
+            />
+            <button 
+              onClick={onSearch} 
+              className="absolute right-1 top-1/2 transform -translate-y-1/2 text-black bg-primary-300 rounded-lg p-2"
+            >
+              <Search size={16} />
+            </button>
+          </div>
+        </div>
+
+        {/* Filter Toggle Button */}
+        <button
+          onClick={() => setShowMobileFilters(!showMobileFilters)}
+          className="flex items-center gap-2 px-4 py-2.5 bg-white/5 rounded-lg hover:bg-primary-300/60 transition-colors flex-shrink-0"
+        >
+          <Filter className="w-4 h-4" />
+          {activeFilterCount > 0 && (
+            <span className="bg-primary-300 text-black text-xs rounded-full w-5 h-5 flex items-center justify-center">
+              {activeFilterCount}
+            </span>
+          )}
+        </button>
+      </div>
+
+      {/* Desktop Layout */}
+      <div className="desktop-visibility lg:flex flex-col lg:flex-row gap-4 items-start lg:items-center">
         {/* Search */}
         <div className="flex-1 w-full md:max-w-md">
           <div className="relative">
@@ -69,7 +105,7 @@ export default function ProductFilters({
               value={searchInput}
               onChange={(e) => onSearchInputChange(e.target.value)}
               onKeyPress={(e) => e.key === "Enter" && onSearch()}
-              className="w-full pl-2 pr-4 py-2.5 bg-gray-50 border-0 rounded-lg outline-none focus:ring-1 focus:ring-primary-300 focus:bg-white transition-all"
+              className="w-full pl-2 pr-4 py-2.5 bg-white/5 border-0 rounded-lg outline-none focus:ring-1 focus:ring-primary-300 transition-all"
             />
             <button onClick={onSearch} className="absolute right-1 top-1/2 transform -translate-y-1/2 text-black bg-primary-300 rounded-lg p-2">
               <Search size={16} />
@@ -83,7 +119,7 @@ export default function ProductFilters({
           <select
             value={`${filters.sortBy}-${filters.sortOrder}`}
             onChange={(e) => handleSortChange(e.target.value)}
-            className="flex-1 lg:flex-none px-3 py-2.5 bg-gray-50 border-0 rounded-lg outline-none focus:ring-1 focus:ring-primary-300 focus:bg-white transition-all"
+            className="flex-1 lg:flex-none px-3 py-2.5 bg-white/5 border-0 rounded-lg outline-none focus:ring-1 focus:ring-primary-300 transition-all"
           >
             <option value="createdAt-desc">Newest</option>
             <option value="price-asc">Price: Low to High</option>
@@ -91,81 +127,64 @@ export default function ProductFilters({
             <option value="rating-desc">Top Rated</option>
           </select>
 
-          {/* Mobile Filter Toggle */}
-          <button
-            onClick={() => setShowMobileFilters(!showMobileFilters)}
-            className="md:hidden flex items-center gap-2 px-4 py-2.5 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
+          {/* Category */}
+          <select
+            value={filters.selectedCategory}
+            onChange={(e) => onFilterChange("selectedCategory", e.target.value)}
+            className="px-3 py-2.5 bg-white/5 border-0 rounded-lg outline-none focus:ring-1 focus:ring-primary-300 transition-all min-w-[140px]"
+            disabled={categoriesLoading}
           >
-            <Filter className="w-4 h-4" />
-            <span>Filters</span>
-            {activeFilterCount > 0 && (
-              <span className="bg-primary-300 text-black text-xs rounded-full w-5 h-5 flex items-center justify-center">
-                {activeFilterCount}
-              </span>
-            )}
-          </button>
+            <option value="">All Categories</option>
+            {categories?.map((cat) => (
+              <option key={cat._id} value={cat.name}>
+                {cat.name}
+              </option>
+            ))}
+          </select>
 
-          {/* Desktop Filter Toggle */}
-          <div className="desktop-visibility md:flex items-center gap-3">
-            {/* Category */}
-            <select
-              value={filters.selectedCategory}
-              onChange={(e) => onFilterChange("selectedCategory", e.target.value)}
-              className="px-3 py-2.5 bg-gray-50 border-0 rounded-lg outline-none focus:ring-1 focus:ring-primary-300 focus:bg-white transition-all min-w-[140px]"
-              disabled={categoriesLoading}
-            >
-              <option value="">All Categories</option>
-              {categories?.map((cat) => (
-                <option key={cat._id} value={cat.name}>
-                  {cat.name}
-                </option>
-              ))}
-            </select>
+          {/* Stock Filter */}
+          <select
+            value={filters.inStock === undefined ? "" : filters.inStock ? "true" : "false"}
+            onChange={(e) =>
+              onFilterChange("inStock", e.target.value === "" ? undefined : e.target.value === "true")
+            }
+            className="px-3 py-2.5 bg-white/5 border-0 rounded-lg outline-none focus:ring-1 focus:ring-primary-300 transition-all"
+          >
+            <option value="">All Stock</option>
+            <option value="true">In Stock</option>
+            <option value="false">Out of Stock</option>
+          </select>
 
-            {/* Stock Filter */}
-            <select
-              value={filters.inStock === undefined ? "" : filters.inStock ? "true" : "false"}
+          {/* Price Inputs */}
+          <div className="flex items-center gap-2">
+            <input
+              type="number"
+              placeholder="Min $"
+              value={filters.minPrice || ""}
               onChange={(e) =>
-                onFilterChange("inStock", e.target.value === "" ? undefined : e.target.value === "true")
+                onFilterChange("minPrice", e.target.value ? Number(e.target.value) : undefined)
               }
-              className="px-3 py-2.5 bg-gray-50 border-0 rounded-lg outline-none focus:ring-1 focus:ring-primary-300 focus:bg-white transition-all"
-            >
-              <option value="">All Stock</option>
-              <option value="true">In Stock</option>
-              <option value="false">Out of Stock</option>
-            </select>
-
-            {/* Price Inputs */}
-            <div className="flex items-center gap-2">
-              <input
-                type="number"
-                placeholder="Min $"
-                value={filters.minPrice || ""}
-                onChange={(e) =>
-                  onFilterChange("minPrice", e.target.value ? Number(e.target.value) : undefined)
-                }
-                onBlur={handlePriceFilter}
-                className="w-20 px-3 py-2.5 bg-gray-50 border-0 rounded-lg outline-none focus:ring-1 focus:ring-primary-300 focus:bg-white transition-all text-sm"
-              />
-              <span className="text-gray-400">-</span>
-              <input
-                type="number"
-                placeholder="Max $"
-                value={filters.maxPrice || ""}
-                onChange={(e) =>
-                  onFilterChange("maxPrice", e.target.value ? Number(e.target.value) : undefined)
-                }
-                onBlur={handlePriceFilter}
-                className="w-20 px-3 py-2.5 bg-gray-50 border-0 rounded-lg outline-none focus:ring-1 focus:ring-primary-300 focus:bg-white transition-all text-sm"
-              />
-            </div>
+              onBlur={handlePriceFilter}
+              className="w-20 px-3 py-2.5 bg-white/5 border-0 rounded-lg outline-none focus:ring-1 focus:ring-primary-300 transition-all text-sm"
+            />
+            <span className="text-gray-400">-</span>
+            <input
+              type="number"
+              placeholder="Max $"
+              value={filters.maxPrice || ""}
+              onChange={(e) =>
+                onFilterChange("maxPrice", e.target.value ? Number(e.target.value) : undefined)
+              }
+              onBlur={handlePriceFilter}
+              className="w-20 px-3 py-2.5 bg-white/5 border-0 rounded-lg outline-none focus:ring-1 focus:ring-primary-300 transition-all text-sm"
+            />
           </div>
 
           {/* Clear Filters */}
           {hasActiveFilters && (
             <button
               onClick={onClearFilters}
-              className="desktop-visibility md:flex items-center gap-1 px-3 py-2.5 text-gray-500 hover:text-gray-700 transition-colors text-sm"
+              className="flex items-center gap-1 px-3 py-2.5 text-primary-300 hover:text-gray-700 transition-colors text-sm"
             >
               <X className="w-4 h-4" />
               Clear
@@ -174,19 +193,36 @@ export default function ProductFilters({
         </div>
       </div>
 
-      {/* Mobile Filter Panel */}
+      {/* Mobile Filter Panel - Shows when expanded */}
       {showMobileFilters && (
-        <div className="lg:hidden mt-4 pt-4 border-t border-gray-100">
-          <div className="grid grid-cols-2 gap-4">
+        <div className="lg:hidden mt-4 pt-4 border-t border-white/10">
+          <div className="space-y-4">
+            {/* Sort Filter */}
+            <div>
+              <label className="block text-xs font-medium text-gray-300 mb-2">
+                Sort By
+              </label>
+              <select
+                value={`${filters.sortBy}-${filters.sortOrder}`}
+                onChange={(e) => handleSortChange(e.target.value)}
+                className="w-full px-3 py-2 bg-white/5 border-0 rounded-lg outline-none focus:ring-1 focus:ring-primary-300 transition-all text-sm"
+              >
+                <option value="createdAt-desc">Newest</option>
+                <option value="price-asc">Price: Low to High</option>
+                <option value="price-desc">Price: High to Low</option>
+                <option value="rating-desc">Top Rated</option>
+              </select>
+            </div>
+
             {/* Category */}
             <div>
-              <label className="block text-xs font-medium text-gray-500 mb-2">
+              <label className="block text-xs font-medium text-gray-300 mb-2">
                 Category
               </label>
               <select
                 value={filters.selectedCategory}
                 onChange={(e) => onFilterChange("selectedCategory", e.target.value)}
-                className="w-full px-3 py-2 bg-gray-50 border-0 rounded-lg outline-none focus:ring-1 focus:ring-primary-300 focus:bg-white transition-all text-sm"
+                className="w-full px-3 py-2 bg-white/5 border-0 rounded-lg outline-none focus:ring-1 focus:ring-primary-300 transition-all text-sm"
                 disabled={categoriesLoading}
               >
                 <option value="">All Categories</option>
@@ -200,25 +236,25 @@ export default function ProductFilters({
 
             {/* Stock Filter */}
             <div>
-              <label className="block text-xs font-medium text-gray-500 mb-2">
-                Stock
+              <label className="block text-xs font-medium text-gray-300 mb-2">
+                Stock Status
               </label>
               <select
                 value={filters.inStock === undefined ? "" : filters.inStock ? "true" : "false"}
                 onChange={(e) =>
                   onFilterChange("inStock", e.target.value === "" ? undefined : e.target.value === "true")
                 }
-                className="w-full px-3 py-2 bg-gray-50 border-0 rounded-lg outline-none focus:ring-1 focus:ring-primary-300 focus:bg-white transition-all text-sm"
+                className="w-full px-3 py-2 bg-white/5 border-0 rounded-lg outline-none focus:ring-1 focus:ring-primary-300 transition-all text-sm"
               >
-                <option value="">All</option>
+                <option value="">All Stock</option>
                 <option value="true">In Stock</option>
                 <option value="false">Out of Stock</option>
               </select>
             </div>
 
             {/* Price Range */}
-            <div className="col-span-2">
-              <label className="block text-xs font-medium text-gray-500 mb-2">
+            <div>
+              <label className="block text-xs font-medium text-gray-300 mb-2">
                 Price Range
               </label>
               <div className="flex items-center gap-2">
@@ -230,9 +266,9 @@ export default function ProductFilters({
                     onFilterChange("minPrice", e.target.value ? Number(e.target.value) : undefined)
                   }
                   onBlur={handlePriceFilter}
-                  className="flex-1 px-3 py-2 bg-gray-50 border-0 rounded-lg outline-none focus:ring-1 focus:ring-primary-300 focus:bg-white transition-all text-sm"
+                  className="flex-1 px-3 py-2 bg-white/5 border-0 rounded-lg outline-none focus:ring-1 focus:ring-primary-300 transition-all text-sm"
                 />
-                <span className="text-gray-400">to</span>
+                <span className="text-gray-400 text-sm">to</span>
                 <input
                   type="number"
                   placeholder="Max $"
@@ -241,7 +277,7 @@ export default function ProductFilters({
                     onFilterChange("maxPrice", e.target.value ? Number(e.target.value) : undefined)
                   }
                   onBlur={handlePriceFilter}
-                  className="flex-1 px-3 py-2 bg-gray-50 border-0 rounded-lg outline-none focus:ring-1 focus:ring-primary-300 focus:bg-white transition-all text-sm"
+                  className="flex-1 px-3 py-2 bg-white/5 border-0 rounded-lg outline-none focus:ring-1 focus:ring-primary-300 transition-all text-sm"
                 />
               </div>
             </div>
@@ -250,7 +286,7 @@ export default function ProductFilters({
           {/* Mobile Clear Filters */}
           {hasActiveFilters && (
             <div className="mt-4 flex justify-between items-center">
-              <span className="text-sm text-gray-500">
+              <span className="text-sm text-gray-300">
                 {activeFilterCount} filter{activeFilterCount !== 1 ? 's' : ''} active
               </span>
               <button
@@ -265,25 +301,27 @@ export default function ProductFilters({
         </div>
       )}
 
-      {/* Active Filters Badge - Desktop */}
+      {/* Active Filters Badge */}
       {hasActiveFilters && (
-        <div className="desktop-visibility md:flex items-center gap-2 mt-3 pt-3 border-t border-gray-100">
-          <span className="text-xs text-gray-500">Active filters:</span>
-          {filters.selectedCategory && (
-            <span className="bg-primary-50 text-primary-700 px-2 py-1 rounded text-xs">
-              {categories.find(c => c._id === filters.selectedCategory)?.name}
-            </span>
-          )}
-          {filters.inStock !== undefined && (
-            <span className="bg-primary-50 text-primary-700 px-2 py-1 rounded text-xs">
-              {filters.inStock ? 'In Stock' : 'Out of Stock'}
-            </span>
-          )}
-          {(filters.minPrice || filters.maxPrice) && (
-            <span className="bg-primary-50 text-primary-700 px-2 py-1 rounded text-xs">
-              ${filters.minPrice || 0} - ${filters.maxPrice || '∞'}
-            </span>
-          )}
+        <div className="mt-3 pt-3 border-t border-white/10">
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="text-xs text-gray-300">Active filters:</span>
+            {filters.selectedCategory && (
+              <span className="bg-primary-300/20 text-primary-300 px-2 py-1 rounded text-xs">
+                {categories.find(c => c._id === filters.selectedCategory)?.name}
+              </span>
+            )}
+            {filters.inStock !== undefined && (
+              <span className="bg-primary-300/20 text-primary-300 px-2 py-1 rounded text-xs">
+                {filters.inStock ? 'In Stock' : 'Out of Stock'}
+              </span>
+            )}
+            {(filters.minPrice || filters.maxPrice) && (
+              <span className="bg-primary-300/20 text-primary-300 px-2 py-1 rounded text-xs">
+                ${filters.minPrice || 0} - ${filters.maxPrice || '∞'}
+              </span>
+            )}
+          </div>
         </div>
       )}
     </div>

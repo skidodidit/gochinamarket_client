@@ -1,133 +1,99 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useGlobalStore } from '@/store/useGlobalStore';
 import Link from 'next/link';
 
 const Banner = () => {
     const { settings } = useGlobalStore()
-    const [currentTime, setCurrentTime] = useState({
-        hours: 0,
-        minutes: 0,
-        seconds: 0,
-        day: 0,
-        date: 0,
-        month: 0,
-        year: 0
-    });
-
-    // Real-time clock effect
-    useEffect(() => {
-        const updateTime = () => {
-            const now = new Date();
-            setCurrentTime({
-                hours: now.getHours(),
-                minutes: now.getMinutes(),
-                seconds: now.getSeconds(),
-                day: now.getDay(),
-                date: now.getDate(),
-                month: now.getMonth(),
-                year: now.getFullYear()
-            });
-        };
-
-        // Update immediately
-        updateTime();
-
-        // Update every second
-        const timer = setInterval(updateTime, 1000);
-
-        return () => clearInterval(timer);
-    }, []);
-
-    type TimeCircleProps = {
-        value: number | string;
-        label: string;
-    };
-
-    const TimeCircle: React.FC<TimeCircleProps> = ({ value, label }) => (
-        <div className="flex flex-col items-center">
-            <div className="w-16 h-16 md:w-20 md:h-20 bg-white rounded-full flex items-center justify-center shadow-lg">
-                <span className="text-primary-300 font-bold text-lg md:text-xl">
-                    {String(value).padStart(2, '0')}
-                </span>
-            </div>
-            <span className="text-white text-xs md:text-sm mt-2 font-medium">
-                {label}
-            </span>
-        </div>
-    );
-
-    const DayCircle: React.FC<{ day: number }> = ({ day }) => {
-        const days = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
-        const months = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
-
-        return (
-            <div className="flex flex-col items-center">
-                <div className="w-16 h-16 md:w-20 md:h-20 bg-white rounded-full flex items-center justify-center shadow-lg">
-                    <div className="text-center">
-                        <span className="text-primary-300 font-bold text-xs md:text-sm block leading-tight">
-                            {days[day]}
-                        </span>
-                        <span className="text-primary-300 font-bold text-lg md:text-xl block leading-tight">
-                            {String(currentTime.date).padStart(2, '0')}
-                        </span>
-                        <span className="text-primary-300 font-bold text-xs md:text-sm block leading-tight">
-                            {months[currentTime.month]}
-                        </span>
-                    </div>
-                </div>
-                <span className="text-white text-xs md:text-sm mt-2 font-medium">
-                    Today
-                </span>
-            </div>
-        );
-    };
 
     return (
-        <div className='bg-primary-300 w-full'>
-            <div className="w-full text-white max-w-7xl mx-auto px-5 md:px-10 py-12">
-                <div className="">
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
-                        {/* Left Side - Content */}
-                        <div className="space-y-6 md:space-y-8 text-center lg:text-left">
-                            {/* Categories Badge */}
-                            <div className="inline-block">
-                                <span className="text-black font-semibold text-sm md:text-base capitalize">
-                                    {settings?.siteName}
-                                </span>
-                            </div>
+        <div className='relative bg-primary-300 w-full overflow-hidden'>
+            {/* Animated background elements */}
+            <div className="absolute inset-0 overflow-hidden">
+                <div className="absolute -top-1/2 -right-1/4 w-96 h-96 bg-black/5 rounded-full blur-3xl animate-pulse"></div>
+                <div className="absolute -bottom-1/2 -left-1/4 w-96 h-96 bg-black/5 rounded-full blur-3xl animate-pulse delay-1000"></div>
+            </div>
 
-                            {/* Main Heading */}
-                            <div>
-                                <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold leading-tight">
-                                    Enhance Your
-                                </h1>
-                                <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold leading-tight">
-                                    Shopping Experience
-                                </h1>
-                            </div>
+            <div className="relative w-full max-w-7xl mx-auto px-5 md:px-10 py-16 md:py-24">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+                    {/* Left Side - Content */}
+                    <div className="space-y-8 text-center lg:text-left z-10">
+                        {/* Brand Badge */}
+                        <div className="inline-flex items-center gap-2 bg-black/10 backdrop-blur-sm px-4 py-2 rounded-full">
+                            <div className="w-2 h-2 bg-black rounded-full animate-pulse"></div>
+                            <span className="text-black font-semibold text-sm md:text-base capitalize">
+                                {settings?.siteName || 'Premium Store'}
+                            </span>
+                        </div>
 
-                            {/* Current Time Display */}
-                            <div className="flex justify-center lg:justify-start gap-4 md:gap-6 py-6">
-                                <DayCircle day={currentTime.day} />
-                                <TimeCircle value={currentTime.hours} label="Hours" />
-                                <TimeCircle value={currentTime.minutes} label="Minutes" />
-                                <TimeCircle value={currentTime.seconds} label="Seconds" />
-                            </div>
+                        {/* Main Heading */}
+                        <div className="space-y-2">
+                            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold leading-tight text-black">
+                                Elevate Your
+                            </h1>
+                            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold leading-tight bg-gradient-to-r from-black to-black/70 bg-clip-text text-transparent">
+                                Shopping Journey
+                            </h1>
+                        </div>
 
-                            {/* CTA Button */}
-                            <div className="pt-4">
-                                <Link 
-                                    href={'/products'} 
-                                    className="bg-white text-primary-300 font-bold py-3 md:py-4 px-8 md:px-12 text-base md:text-lg transition-all duration-300 hover:shadow-xl hover:scale-105"
-                                >
-                                    Shop Now!
-                                </Link>
+                        {/* Subtitle */}
+                        <p className="text-black/80 text-lg md:text-xl max-w-lg mx-auto lg:mx-0">
+                            Discover exclusive collections with unbeatable quality and style
+                        </p>
+
+                        {/* Features */}
+                        <div className="flex flex-wrap justify-center lg:justify-start gap-6 text-sm md:text-base">
+                            <div className="flex items-center gap-2">
+                                <svg className="w-5 h-5 text-black" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                                </svg>
+                                <span className="text-black font-medium">Free Shipping</span>
+                            </div>
+                            <div className="flex items-center gap-2">
+                                <svg className="w-5 h-5 text-black" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                                </svg>
+                                <span className="text-black font-medium">Secure Payment</span>
+                            </div>
+                            <div className="flex items-center gap-2">
+                                <svg className="w-5 h-5 text-black" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                                </svg>
+                                <span className="text-black font-medium">24/7 Support</span>
                             </div>
                         </div>
 
-                        {/* Right Side - Product Image */}
-                        <div className="flex justify-center lg:justify-end">
-                            <img src="/images/products.png" alt="products" className='w-full h-full'/>
+                        {/* CTA Buttons */}
+                        <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-4">
+                            <Link
+                                href={'/products'}
+                                className="group relative bg-black text-primary-300 font-bold py-4 px-10 text-lg rounded-full transition-all duration-300 hover:scale-105 hover:shadow-2xl inline-flex items-center justify-center gap-2 overflow-hidden"
+                            >
+                                <span className="relative z-10">Shop Now</span>
+                                <svg className="w-5 h-5 relative z-10 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                                </svg>
+                                <div className="absolute inset-0 bg-gradient-to-r from-black to-black/80 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></div>
+                            </Link>
+                            
+                            <Link href={'/used_products'} className="bg-white/20 backdrop-blur-sm text-black font-semibold py-4 px-10 text-lg rounded-full transition-all duration-300 hover:bg-white/30 hover:scale-105 border-2 border-black/10">
+                                Shop Second Hand
+                            </Link>
+                        </div>
+                    </div>
+
+                    {/* Right Side - Product Image */}
+                    <div className="relative flex justify-center lg:justify-end">
+                        {/* Decorative elements */}
+                        <div className="absolute inset-0 bg-gradient-to-br from-black/5 to-transparent rounded-3xl transform rotate-6"></div>
+                        <div className="absolute inset-0 bg-gradient-to-tl from-black/5 to-transparent rounded-3xl transform -rotate-6"></div>
+
+                        {/* Image container */}
+                        <div className="relative z-10 transform hover:scale-105 transition-transform duration-500">
+                            <img
+                                src="/images/products.png"
+                                alt="Premium products showcase"
+                                className='w-full h-full object-contain drop-shadow-2xl'
+                            />
                         </div>
                     </div>
                 </div>

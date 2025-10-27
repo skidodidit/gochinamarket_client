@@ -77,7 +77,7 @@ const FeatureSection = () => {
           >
             {/* Icon Circle */}
             <motion.div 
-              className="flex items-center justify-center w-16 h-16 rounded-full bg-gray-300 mb-4"
+              className="flex items-center justify-center w-16 h-16 rounded-full bg-black mb-4"
               variants={iconVariants}
             >
               <motion.div 
@@ -94,7 +94,7 @@ const FeatureSection = () => {
 
             {/* Text */}
             <motion.h3 
-              className="text-base font-bold text-gray-900"
+              className="text-base font-bold text-primary-300"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.3 + (index * 0.1), duration: 0.5 }}
@@ -102,7 +102,7 @@ const FeatureSection = () => {
               {feature.title}
             </motion.h3>
             <motion.p 
-              className="text-sm text-gray-600 mt-1"
+              className="text-sm text-gray-300 mt-1"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.4 + (index * 0.1), duration: 0.5 }}
