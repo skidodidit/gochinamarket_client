@@ -12,6 +12,7 @@ interface ProductGridProps {
 
 export default function ProductGrid({ products }: ProductGridProps) {
   const { run: add, loading: addingToCart, setLoading } = useApi(addToCart);
+  console.log(products);
 
   const guestId = useGuestId();
   useEffect(() => {
@@ -30,9 +31,9 @@ export default function ProductGrid({ products }: ProductGridProps) {
 
   return (
     <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 md:gap-4 gap-2 mb-8">
-      {products?.map((product) => (
+      {products?.map((product, index) => (
         <ProductCard
-          key={product._id}
+          key={product?._id ?? `product-${index}`}
           product={product}
           onAddToCart={handleAddToCart}
           addingToCart={addingToCart}

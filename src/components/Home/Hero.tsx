@@ -133,18 +133,6 @@ const HeroSection = ({ bannerProducts, categories, loading }: HeroSectionProps) 
                     className="w-full h-full object-cover"
                   />
                 )}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent flex flex-col justify-end p-3">
-                  {/* <h3 className="text-white font-semibold text-sm mb-2 capitalize">{product.name}</h3>
-                  <motion.button
-                    onClick={() => handleShopNow(product._id)}
-                    className="bg-cyan-400 hover:bg-cyan-500 text-black text-xs font-semibold py-1.5 px-4 transition-colors w-fit"
-                    style={{ backgroundColor: '#30d9dc' }}
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    SHOP NOW
-                  </motion.button> */}
-                </div>
               </motion.div>
             ))}
 
@@ -215,18 +203,6 @@ const HeroSection = ({ bannerProducts, categories, loading }: HeroSectionProps) 
                     <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent flex flex-col justify-end p-3"
                       onClick={() => handleShopNow(carouselProducts[currentSlide]._id)}
                     >
-                      {/* <h3 className="text-white font-semibold text-sm mb-2">
-                        {carouselProducts[currentSlide]?.name}
-                      </h3>
-                      <motion.button
-                        onClick={() => handleShopNow(carouselProducts[currentSlide]._id)}
-                        className="bg-cyan-400 hover:bg-cyan-500 text-black text-xs py-1.5 px-4 transition-colors w-fit"
-                        style={{ backgroundColor: '#30d9dc' }}
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
-                      >
-                        SHOP NOW
-                      </motion.button> */}
                     </div>
                   </motion.div>
                 </AnimatePresence>
@@ -371,16 +347,6 @@ const HeroSection = ({ bannerProducts, categories, loading }: HeroSectionProps) 
                     <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent flex flex-col justify-end p-4"
                       onClick={() => handleShopNow(product._id)}
                     >
-                      {/* <h3 className="text-white font-semibold text-lg mb-3">{product.name}</h3>
-                      <motion.button
-                        onClick={() => handleShopNow(product._id)}
-                        className="bg-cyan-400 hover:bg-cyan-500 text-black py-2 px-6 transition-colors w-fit"
-                        style={{ backgroundColor: '#30d9dc' }}
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
-                      >
-                        SHOP NOW
-                      </motion.button> */}
                     </div>
                   </motion.div>
                 ))}
@@ -415,18 +381,6 @@ const HeroSection = ({ bannerProducts, categories, loading }: HeroSectionProps) 
                     <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent flex flex-col justify-end p-4"
                       onClick={() => handleShopNow(carouselProducts[currentSlide]._id)}
                     >
-                      {/* <h3 className="text-white font-semibold text-lg mb-3">
-                        {carouselProducts[currentSlide]?.name}
-                      </h3>
-                      <motion.button
-                        onClick={() => handleShopNow(carouselProducts[currentSlide]._id)}
-                        className="bg-cyan-400 hover:bg-cyan-500 text-black py-2 px-6 transition-colors w-fit"
-                        style={{ backgroundColor: '#30d9dc' }}
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
-                      >
-                        SHOP NOW
-                      </motion.button> */}
                     </div>
                   </motion.div>
                 </AnimatePresence>

@@ -46,7 +46,6 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  // ✅ Fetch once for Zustand + global wrapper
   const [contacts, settings] = await Promise.all([getContacts(), getSettings()]);
 
   return (

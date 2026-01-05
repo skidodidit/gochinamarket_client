@@ -9,18 +9,18 @@ interface ProductCardProps {
 }
 
 export default function ProductCard({ product, onAddToCart, addingToCart }: ProductCardProps) {
-  const discountedPrice = product.discount
-    ? product.price * (1 - product.discount / 100)
-    : product.price;
+  const discountedPrice = product?.discount
+    ? product?.price * (1 - product?.discount / 100)
+    : product?.price;
 
   return (
     <div className="bg-white/5 border border-white/20 rounded-xl backdrop-blur-sm hover:shadow-lg hover:scale-105 transform transition-transform duration-300 overflow-hidden relative">
-      <Link href={`/products/${product._id}`}>
+      <Link href={`/products/${product?._id}`}>
         <div className="relative">
-          {product.images && product.images[0] ? (
+          {product?.images && product?.images[0] ? (
             <img
-              src={product.images[0].url}
-              alt={product.name}
+              src={product?.images[0].url}
+              alt={product?.name}
               className="w-full h-48 object-cover"
             />
           ) : (
@@ -30,10 +30,10 @@ export default function ProductCard({ product, onAddToCart, addingToCart }: Prod
           )}
           {product?.discount! > 0 && (
             <div className="absolute top-2 right-2 bg-red-500/60 text-white px-2 py-1 rounded-full text-xs font-semibold">
-              -{product.discount}%
+              -{product?.discount}%
             </div>
           )}
-          {!product.inStock && (
+          {!product?.inStock && (
             <div className="absolute top-2 left-2 bg-black/40 text-white px-2 py-1 rounded-full text-xs font-semibold">
               Out of Stock
             </div>
@@ -42,9 +42,9 @@ export default function ProductCard({ product, onAddToCart, addingToCart }: Prod
       </Link>
 
       <div className="p-4">
-        <Link href={`/products/${product._id}`} className="flex items-center gap-1">
+        <Link href={`/products/${product?._id}`} className="flex items-center gap-1">
           <h3 className="font-semibold text-white hover:text-primary-300 transition line-clamp-2 capitalize">
-            {product.name}
+            {product?.name}
           </h3>
           {/* <p className="text-sm text-gray-500">- {product.brand}</p> */}
         </Link>
@@ -56,7 +56,7 @@ export default function ProductCard({ product, onAddToCart, addingToCart }: Prod
               {[...Array(5)].map((_, i) => (
                 <svg
                   key={i}
-                  className={`w-3.5 h-3.5 ${i < Math.floor(product.rating)
+                  className={`w-3.5 h-3.5 ${i < Math.floor(product?.rating)
                       ? "text-yellow-400"
                       : "text-gray-300"
                     }`}
@@ -68,38 +68,38 @@ export default function ProductCard({ product, onAddToCart, addingToCart }: Prod
               ))}
             </div>
             <span className="text-sm text-gray-400 ml-2">
-              {product.ratingCount}
+              {product?.ratingCount}
             </span>
           </div>
 
 
           <button
             onClick={() => onAddToCart(product._id)}
-            disabled={!product.inStock || addingToCart}
-            className={`w-8 h-6 font-medium flex items-center justify-center transition rounded-full ${product.inStock
+            disabled={!product?.inStock || addingToCart}
+            className={`w-8 h-6 font-medium flex items-center justify-center transition rounded-full ${product?.inStock
                 ? "border border-primary-300 text-primary-300 hover:bg-white/20"
                 : "bg-gray-400 text-gray-500 cursor-not-allowed"
               }`}
           >
-            {addingToCart ? "..." : product.inStock ? <ShoppingCart size={16} /> : <ShoppingCart size={16} />}
+            {addingToCart ? "..." : product?.inStock ? <ShoppingCart size={16} /> : <ShoppingCart size={16} />}
             
           </button>
         </div>
 
         <div className="flex items-center justify-between">
           <div>
-            {product.discount ? (
+            {product?.discount ? (
               <div className="flex items-center gap-2">
                 <span className="text-lg font-bold text-primary-300">
                   ${discountedPrice.toFixed(2)}
                 </span>
                 <span className="text-xs md:text-sm text-gray-500 line-through">
-                  ${product.price.toFixed(2)}
+                  ${product?.price?.toFixed(2)}
                 </span>
               </div>
             ) : (
               <span className="text-lg font-bold text-white">
-                ${product.price.toFixed(2)}
+                ${product?.price?.toFixed(2)}
               </span>
             )}
           </div>

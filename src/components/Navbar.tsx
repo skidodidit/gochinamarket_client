@@ -424,7 +424,7 @@ export default function Navbar({ show = true }: NavbarProps) {
               exit="exit"
               onClick={(e) => e.stopPropagation()}
             >
-              <div className="bg-primary-300 w-48 h-48 fixed rounded-full opacity-50 blur-[100px] top-32" />
+              {/* <div className="bg-primary-300 w-48 h-48 fixed rounded-full opacity-50 blur-[100px] top-32" /> */}
               {/* Header */}
               <motion.div
                 className="flex items-center justify-between py-4 pr-4"
